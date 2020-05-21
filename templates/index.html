@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cheeky Chats</title>
+        <script type="application/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <meta name="viewport" content="width=device_width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+        <script src="{{ url_for('static', filename='index.js') }}"></script>
+    </head>
+    <body>
+        <div class="username">
+            <form id="newuser">
+                <h4>Please enter the username you will use on this site!!</h4>
+                <input type="text" autocomplete="off" autofocus placeholder="Name" id="name"><br>
+                <input type="submit">
+            </form>
+        </div>
+        <div class="container">
+            <div class="row">
+                <aside class="col-3 px-0 fixed-top" id="left">
+                    <div class="list-group w-100">
+                        <h6>Welcome to Cheeky Chats:</h6>
+                        <h5></h5>
+                        <br><br>
+                        <h3>List of chatrooms:</h3><br>
+                        <ul>
+                            {% for chat in chats %}
+                                <li><a href="" class="nav-link" data-page="{{chat}}">{{chat}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        
+                        <form id="newchannel">
+                            <p id="message"></p><br>
+                            Start new channel:
+                            <input type="text" autocomplete="off" autofocus placeholder="Name" id="channel">
+                            <input type="submit">
+                        </form>
+                    </div>
+                </aside>
+                <main class="col offset-2 h-100">
+                    <div class="row bg-white">
+                        <div class="col-12 py-4">
+                            Hello
+                            <ul reversed id="chat"></ul>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>
