@@ -30,3 +30,12 @@ h5, h6 {
     bottom: 0;
     width:100%;
 }
+
+#messages {
+    color: white;
+    list-style: none;
+    width:100%;
+    background-color: dimgray;  
+    padding: 5px;
+    margin: 10px;
+}

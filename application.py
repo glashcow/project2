@@ -1,5 +1,6 @@
 import os
 import json
+import datetime
 
 from flask import Flask, render_template, jsonify, request
 from flask_socketio import SocketIO, emit
@@ -19,15 +20,18 @@ def index():
 def channel(channel):
     return jsonify({"messages": messages[channel]})
 
-#@app.route("/newchannel", methods=["POST", "GET"])
-#def newchannel():
- #   req = request.form
-  #  newchannel = req.get("channel")
-   # print(newchannel)
-    #if newchannel in messages.keys():
-     #   return jsonify({"success": "false"})
-    #else:    
-     #   messages[newchannel] = []
-      #  message = f"{newchannel} created"
-       # messages[newchannel].append(message)
-        #return jsonify({"success": "true"})
+@app.route("/newchannel", methods=["POST", "GET"])
+def newchannel():
+    newchannel = request.values.get("channel")
+    print(newchannel)
+    if newchannel in messages.keys():
+        return "false"
+    else:    
+        messages[newchannel] = []
+        message = f"{newchannel} created"
+        time = datetime.datetime.now()
+        time = str(time)
+        time = time[:-7]
+        message = time + "  " + message
+        messages[newchannel].append(message)
+        return "true"

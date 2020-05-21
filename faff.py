@@ -1,4 +1,6 @@
-ast = "jobby"
+import datetime
 
-ab = f" helloo {ast}"
-print(ab)
+x = datetime.datetime.now()
+x = str(x)
+x = x[:-7]
+print(x) 
