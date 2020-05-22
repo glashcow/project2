@@ -57,3 +57,14 @@ def sendmessage(data):
         del messages[page][0]
         messages[page].append(message)   
     emit("message sent", page, broadcast=True)
+
+@socketio.on("newsvg")    
+def newsvg(data):
+    svg = data["svg"]
+    page = data["page"]
+    if len(messages[page]) < 100:
+        messages[page].append(svg)
+    else:
+        del messages[page][0]
+        messages[page].append(svg)   
+    emit("message sent", page, broadcast=True)

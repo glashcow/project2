@@ -41,5 +41,10 @@ h5, h6 {
 }
 
 #message{
-    width:60%;
+    width:50%;
 }
+
+#picarea {
+    display: none;
+}
+

@@ -40,6 +40,10 @@ document.addEventListener('DOMContentLoaded', () =>{
         return false;
     };
     
+    document.querySelector('#showpic').onclick = function() {
+        document.querySelector('#picarea').style.display = "block";
+    }
+    
  
 });
 
@@ -58,8 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(page);
             console.log(message);
             socket.emit('submit message', {'message': message ,'page': page ,'user': user }); 
+            document.querySelector('#message').value = '';
             return false;
         };
+        
+        
+        
+        document.querySelector('#sendpic').onclick = function() {
+            const svgtosend = document.querySelector('#svgtosend').innerHTML;
+            const page = localStorage.getItem('page');
+            socket.emit('newsvg', {'svg': svgtosend ,'page': page });
+            
+        };
+        
+         
     });
     
     socket.on('message sent', data => {
@@ -100,10 +116,23 @@ function load_chat(chat) {
         document.querySelector('#chat').innerHTML = "";
         const response = JSON.parse(request.response);
         for(var i = response.messages.length-1; i >= 0 ; i-- ){
-            const li = document.createElement('li');
-            li.id = "messages"
-            li.innerHTML = response.messages[i];
-            document.querySelector('#chat').append(li);
+            if( response.messages[i].charAt(0) === "<" ){
+                const li = document.createElement('li');
+                li.id = "messages";
+                const sv = document.createElement('svg');
+                sv.className  = 'svg';
+                sv.style = "width:100%; height:100px";
+                sv.innerHTML = response.messages[i];
+                console.log(sv);
+                li.innerHTML = sv;
+                document.querySelector('#chat').append(li); 
+            }
+            else {
+                const li = document.createElement('li');
+                li.id = "messages"
+                li.innerHTML = response.messages[i];
+                document.querySelector('#chat').append(li);     
+            } 
         }
     };
     localStorage.setItem('page', chat);
