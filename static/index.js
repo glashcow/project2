@@ -119,12 +119,9 @@ function load_chat(chat) {
             if( response.messages[i].charAt(0) === "<" ){
                 const li = document.createElement('li');
                 li.id = "messages";
-                const sv = document.createElement('svg');
-                sv.className  = 'svg';
-                sv.style = "width:100%; height:100px";
-                sv.innerHTML = response.messages[i];
-                console.log(sv);
-                li.innerHTML = sv;
+                const text = response.messages[i];
+                li.innerHTML = `<svg style="width:100%; height:100px>${text}<\svg>`;
+                console.log(li);
                 document.querySelector('#chat').append(li); 
             }
             else {

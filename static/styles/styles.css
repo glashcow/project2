@@ -48,3 +48,11 @@ h5, h6 {
     display: none;
 }
 
+#picsinlist {
+    background-color: white;
+    width:100%;
+}
+
+.svgboard {
+    height:120px;
+}
