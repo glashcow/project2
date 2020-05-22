@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () =>{
         load_chat(chat);
     }
     
+    if(!localStorage.getItem('page')){
+        const chat = 'main';
+        load_chat(chat);
+    }
+    
     document.querySelector('#newuser').onsubmit = function() {
         const name = document.querySelector('#name').value;
         console.log(name);
@@ -29,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () =>{
         new_channel(channel);
         return false;
     };
+    
+    document.querySelector('#newmessage').onsubmit = function() {
+        document.querySelector('#message').clear();
+        return false;
+    };
+    
  
 });
 
@@ -46,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const user = localStorage.getItem('user');
             console.log(page);
             console.log(message);
-            socket.emit('submit message', {'message': message ,'page': page ,'user': user });    
+            socket.emit('submit message', {'message': message ,'page': page ,'user': user }); 
             return false;
         };
     });
