@@ -2,7 +2,8 @@
 <html>
     <head>
         <title>Cheeky Chats</title>
-        <script type="application/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        
         <meta name="viewport" content="width=device_width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
@@ -33,7 +34,7 @@
                         <form id="newchannel">
                             <p id="warn"></p><br>
                             Start new channel:
-                            <input type="text" autocomplete="off" autofocus placeholder="Name" id="channel">
+                            <input type="text" autocomplete="off" autofocus placeholder="Name" id="channel" value="Create Chat">
                             <input type="submit">
                         </form>
                     </div>
@@ -41,6 +42,13 @@
                 <main class="col offset-2 h-100">
                     <div class="row bg-white">
                         <div class="col-12 py-4">
+                            <div id="messagebar">
+                                <form id="newmessage">
+                                    Messsage:
+                                    <input type="text" autocomplete="off" autofocus placeholder="Message" id="message">
+                                    <input type="submit" value="Send Message">   
+                                </form>
+                            </div>    
                             <ul reversed id="chat"></ul>
                         </div>
                     </div>

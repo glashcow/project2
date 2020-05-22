@@ -9,7 +9,12 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
-messages = {"main" : ["this site is well good yeah", "totally man, pure rad"], "sports" : ["hello", "Hi mate"], "fashion" : ["I pure love dresses"]}
+numbers = []
+for i in range(1,98):
+    i = str(i)
+    numbers.append(i)
+
+messages = {"main" : ["this site is well good yeah", "totally man, pure rad"], "sports" : ["hello", "Hi mate"], "fashion" : ["I pure love dresses"], "numbers" : numbers}
 
 @app.route("/")
 def index():
@@ -35,3 +40,20 @@ def newchannel():
         message = time + "  " + message
         messages[newchannel].append(message)
         return "true"
+
+@socketio.on("submit message")  
+def sendmessage(data):
+    message = data["message"]
+    page = data["page"]
+    user = data["user"]
+    print(page)
+    x = datetime.datetime.now()
+    x = str(x)
+    x = x[:-7]
+    message = user + " at " + x + ":     " + message
+    if len(messages[page]) < 100:
+        messages[page].append(message)
+    else:
+        del messages[page][0]
+        messages[page].append(message)   
+    emit("message sent", page, broadcast=True)

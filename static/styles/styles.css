@@ -39,3 +39,7 @@ h5, h6 {
     padding: 5px;
     margin: 10px;
 }
+
+#message{
+    width:60%;
+}

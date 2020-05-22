@@ -29,8 +29,39 @@ document.addEventListener('DOMContentLoaded', () =>{
         new_channel(channel);
         return false;
     };
-    
+ 
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+    socket.on('connect', () => {
+              
+        document.querySelector('#newmessage').onsubmit = function() {
+            const message = document.querySelector('#message').value;
+            const page = localStorage.getItem('page');
+            const user = localStorage.getItem('user');
+            console.log(page);
+            console.log(message);
+            socket.emit('submit message', {'message': message ,'page': page ,'user': user });    
+            return false;
+        };
+    });
+    
+    socket.on('message sent', data => {
+        if(localStorage.getItem('page') === data){
+            load_chat(data);
+        }  
+        else {
+            load_chat(localStorage.getItem('page'));
+        }
+    });
+});
+
+
 
 
 function new_channel(channel){
