@@ -8,11 +8,13 @@ document.addEventListener('DOMContentLoaded', () =>{
         document.querySelector('h5').innerHTML = localStorage.getItem('user');
         const chat = localStorage.getItem('page');
         load_chat(chat);
+        document.querySelector('#current').innerHTML = chat;
     }
     
     if(!localStorage.getItem('page')){
         const chat = 'main';
         load_chat(chat);
+        document.querySelector('#current').innerHTML = chat;
     }
     
     document.querySelector('#newuser').onsubmit = function() {
@@ -25,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     document.querySelectorAll('.nav-link').forEach(link => {
         link.onclick = () => {
             load_chat(link.dataset.page);
+            document.querySelector('#current').innerHTML = localStorage.getItem('page');
             return false;
         };
     });
@@ -41,8 +44,15 @@ document.addEventListener('DOMContentLoaded', () =>{
     };
     
     document.querySelector('#showpic').onclick = function() {
-        document.querySelector('#picarea').style.display = "block";
-    }
+        if(document.querySelector('#picarea').style.display === "none"){
+            document.querySelector('#picarea').style.display = "block";
+            document.querySelector('#showpic').innerHTML = "Hide";
+        } 
+        else {
+            document.querySelector('#picarea').style.display = "none";
+            document.querySelector('#showpic').innerHTML = "Send drawing";
+        }
+    };
     
  
 });
@@ -72,7 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const svgtosend = document.querySelector('#svgtosend').innerHTML;
             const page = localStorage.getItem('page');
             socket.emit('newsvg', {'svg': svgtosend ,'page': page });
-            
+            document.querySelector('#svgtosend').innerHTML = '';
+        };
+        
+        document.querySelector('#erase').onclick = function() {
+            document.querySelector('#svgtosend').innerHTML = '';
         };
         
          
@@ -120,8 +134,10 @@ function load_chat(chat) {
                 const li = document.createElement('li');
                 li.id = "messages";
                 const text = response.messages[i];
-                li.innerHTML = `<svg style="width:100%; height:100px>${text}<\svg>`;
-                console.log(li);
+                var today = new Date();
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + " " +today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                namedate = localStorage.getItem('user') + " at " + date;
+                li.innerHTML = `<svg style="width:100%; height:100px>${text}<\svg><p>${namedate}<\p>`;
                 document.querySelector('#chat').append(li); 
             }
             else {

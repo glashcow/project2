@@ -25,13 +25,13 @@
                         <h6>Welcome to Cheeky Chats:</h6>
                         <h5></h5>
                         <br><br>
+                        <h4>Current chat room: <span id="current"></span></h4>
                         <h3>List of chatrooms:</h3><br>
-                        <ul>
+                        <ul id="listofchats">
                             {% for chat in chats %}
                                 <li><a href="" class="nav-link" data-page="{{chat}}">{{chat}}</a></li>
                             {% endfor %}
                         </ul>
-                        
                         <form id="newchannel">
                             <p id="warn"></p><br>
                             Start new channel:
@@ -48,11 +48,12 @@
                                     Messsage:
                                     <input type="text" autocomplete="off" autofocus placeholder="Message" id="message">
                                     <input type="submit" value="Send Message">  
-                                    <button id="showpic">Send pic</button>
                                 </form>
+                                <button id="showpic">Send drawing</button>
                                 <div id="picarea">
                                     <svg id="svgtosend" class="svg" style="width:100%; height:100px"/>
                                     <button id="sendpic">Submit</button>
+                                    <button id="erase">Erase</button>
                                 </div>    
                             </div>    
                             <ul reversed id="chat"></ul>

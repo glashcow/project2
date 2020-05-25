@@ -46,7 +46,6 @@ def sendmessage(data):
     message = data["message"]
     page = data["page"]
     user = data["user"]
-    print(page)
     x = datetime.datetime.now()
     x = str(x)
     x = x[:-7]

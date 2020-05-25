@@ -20,6 +20,10 @@ h5, h6 {
 }
 
 
+#listofchats {
+    list-style: none;
+}
+
 #left {
     background-color:aliceblue;
     height: 100%;
@@ -40,7 +44,11 @@ h5, h6 {
     margin: 10px;
 }
 
-#message{
+svg {
+    background-color: white;
+}
+
+#message {
     width:50%;
 }
 
@@ -54,5 +62,5 @@ h5, h6 {
 }
 
 .svgboard {
-    height:120px;
+    height:100px;
 }
