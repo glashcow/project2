@@ -81,7 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#sendpic').onclick = function() {
             const svgtosend = document.querySelector('#svgtosend').innerHTML;
             const page = localStorage.getItem('page');
-            socket.emit('newsvg', {'svg': svgtosend ,'page': page });
+            const user = localStorage.getItem('user');
+            socket.emit('newsvg', {'svg': svgtosend ,'page': page , 'user' :user });
             document.querySelector('#svgtosend').innerHTML = '';
         };
         
@@ -130,22 +131,10 @@ function load_chat(chat) {
         document.querySelector('#chat').innerHTML = "";
         const response = JSON.parse(request.response);
         for(var i = response.messages.length-1; i >= 0 ; i-- ){
-            if( response.messages[i].charAt(0) === "<" ){
-                const li = document.createElement('li');
-                li.id = "messages";
-                const text = response.messages[i];
-                var today = new Date();
-                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + " " +today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                namedate = localStorage.getItem('user') + " at " + date;
-                li.innerHTML = `<svg style="width:100%; height:100px>${text}<\svg><p>${namedate}<\p>`;
-                document.querySelector('#chat').append(li); 
-            }
-            else {
-                const li = document.createElement('li');
-                li.id = "messages"
-                li.innerHTML = response.messages[i];
-                document.querySelector('#chat').append(li);     
-            } 
+            const li = document.createElement('li');
+            li.id = "messages"
+            li.innerHTML = response.messages[i];
+            document.querySelector('#chat').append(li);     
         }
     };
     localStorage.setItem('page', chat);

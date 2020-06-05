@@ -61,9 +61,15 @@ def sendmessage(data):
 def newsvg(data):
     svg = data["svg"]
     page = data["page"]
+    user = data["user"]
+    x = datetime.datetime.now()
+    x = str(x)
+    x = x[:-7]
+    message = "<svg style=\"width:100%; height:100px>\">" + svg + "<\svg><br>" + user + " at " + x  
+    print(message)
     if len(messages[page]) < 100:
-        messages[page].append(svg)
+        messages[page].append(message)
     else:
         del messages[page][0]
-        messages[page].append(svg)   
+        messages[page].append(message)   
     emit("message sent", page, broadcast=True)
